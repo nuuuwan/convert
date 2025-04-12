@@ -4,6 +4,9 @@ from convert.core.AbstractDoc import AbstractDoc, Paragraph
 
 
 class DocXDoc(AbstractDoc):
+    @classmethod
+    def get_ext(cls) -> str:
+        return ".docx"
 
     @staticmethod
     def parse_docx_paragraph(docx_paragraph) -> Paragraph:
@@ -14,6 +17,7 @@ class DocXDoc(AbstractDoc):
 
     @classmethod
     def from_file(cls, file_path: str) -> None:
+        assert file_path.endswith(cls.get_ext())
         doc = Document(file_path)
         paragraphs = []
         for docx_paragraph in doc.paragraphs:

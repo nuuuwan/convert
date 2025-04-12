@@ -4,6 +4,10 @@ from convert.core.AbstractDoc import AbstractDoc, Paragraph
 
 
 class MarkdownDoc(AbstractDoc):
+    @classmethod
+    def get_ext(cls) -> str:
+        return ".md"
+
     @staticmethod
     def parse_line(line: str) -> Paragraph:
         if line.startswith("# "):
@@ -16,6 +20,7 @@ class MarkdownDoc(AbstractDoc):
 
     @classmethod
     def from_file(cls, file_path: str) -> None:
+        assert file_path.endswith(cls.get_ext())
         paragraphs = []
         for line in File(file_path).read_lines():
             if line.strip():
