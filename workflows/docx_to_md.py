@@ -28,6 +28,8 @@ def main(dir_path):
             )
             docx_to_md(docx_path, md_path)
 
+    os.startfile(dir_path_md)
+
 
 if __name__ == "__main__":
     dir_path = sys.argv[1]
