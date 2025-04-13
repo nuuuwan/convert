@@ -3,18 +3,22 @@ import sys
 
 from utils import Log
 
-from convert import MarkdownDoc
+from convert import MarkdownDoc, TexDoc, DocXDoc
 
 log = Log("md_from_dir")
 
 
-def main(dir_path):
-    doc = MarkdownDoc.from_dir(dir_path)
-    doc.to_file(os.path.join(dir_path, "_all.md"))
-    log.info(f"Created {os.path.join(dir_path, '_all.md')}")
+def main(dir_path, title):
+    doc = MarkdownDoc.from_dir(dir_path, title)
+    doc.to_file(os.path.join(dir_path + ".all.md"))
+
+    TexDoc.from_instance(doc).to_file(os.path.join(dir_path + ".all.tex"))
+    DocXDoc.from_instance(doc).to_file(os.path.join(dir_path + ".all.docx"))
+
     os.startfile(dir_path)
 
 
 if __name__ == "__main__":
     dir_path = sys.argv[1]
-    main(dir_path)
+    title = sys.argv[2]
+    main(dir_path, title)

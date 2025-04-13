@@ -1,6 +1,8 @@
-from utils import File
+from utils import File, Log
 
 from convert.core.AbstractDoc import AbstractDoc, Paragraph
+
+log = Log("MarkdownDoc")
 
 
 class MarkdownDoc(AbstractDoc):
@@ -44,3 +46,4 @@ class MarkdownDoc(AbstractDoc):
             line = MarkdownDoc.write_line(paragraph)
             lines.append(line)
         File(file_path).write_lines(lines)
+        log.info(f"Wrote {file_path}")

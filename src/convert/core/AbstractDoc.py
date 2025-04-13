@@ -21,6 +21,34 @@ class Paragraph:
     def n_words(self) -> int:
         return len(self.text.split())
 
+    def clean(self):
+        text = self.text.strip()
+
+        for before, after in [
+            ("---", "..."),
+            ("“", '"'),
+            ("”", '"'),
+            ("‘", "'"),
+            ("’", "'"),
+            ("…", "..."),
+        ]:
+            text = text.replace(before, after)
+
+        if text:
+            return Paragraph(self.tag, text)
+        return None
+
+    @staticmethod
+    def get_lower_tag(tag):
+        if tag == "h1":
+            return "h2"
+        elif tag == "h2":
+            return "h3"
+        return "p"
+
+    def lower(self):
+        return Paragraph(Paragraph.get_lower_tag(self.tag), self.text)
+
 
 @dataclass
 class AbstractDoc(ABC):
@@ -40,9 +68,18 @@ class AbstractDoc(ABC):
     def from_instance(cls, instance) -> None:
         return cls(instance.paragraphs)
 
+    def clean(self):
+        new_paragraphs = []
+        for paragraph in self.paragraphs:
+            new_paragraph = paragraph.clean()
+            if new_paragraph:
+                new_paragraphs.append(new_paragraph)
+        self.paragraphs = new_paragraphs
+        return self
+
     @classmethod
-    def from_dir(cls, dir_path: str) -> None:
-        paragraphs = []
+    def from_dir(cls, dir_path: str, title: str) -> None:
+        paragraphs = [Paragraph("h1", title)]
         n_docs = 0
         for filename in os.listdir(dir_path):
             if (
@@ -52,7 +89,11 @@ class AbstractDoc(ABC):
             ):
                 file_path = os.path.join(dir_path, filename)
                 doc = cls.from_file(file_path)
-                paragraphs.extend(doc.paragraphs)
+                doc.clean()
+                doc.to_file(file_path)
+
+                for paragraph in doc.paragraphs:
+                    paragraphs.append(paragraph.lower())
                 n_docs += 1
 
                 log.debug(f"{n_docs}) {doc.n_words:,}\t{filename}")

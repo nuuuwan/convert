@@ -1,6 +1,8 @@
 from docx import Document
-
+from utils import Log
 from convert.core.AbstractDoc import AbstractDoc, Paragraph
+
+log = Log("DocXDoc")
 
 
 class DocXDoc(AbstractDoc):
@@ -35,3 +37,4 @@ class DocXDoc(AbstractDoc):
             else:
                 doc.add_paragraph(paragraph.text)
         doc.save(file_path)
+        log.info(f"Saved {file_path}")
