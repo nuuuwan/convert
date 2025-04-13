@@ -3,7 +3,7 @@ import sys
 
 from utils import Log
 
-from convert import MarkdownDoc, TexDoc
+from convert import MarkdownDoc
 
 log = Log("md_from_dir")
 
