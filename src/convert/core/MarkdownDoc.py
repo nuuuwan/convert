@@ -46,4 +46,3 @@ class MarkdownDoc(AbstractDoc):
             line = MarkdownDoc.write_line(paragraph)
             lines.append(line)
         File(file_path).write_lines(lines)
-        log.info(f"Wrote {file_path}")

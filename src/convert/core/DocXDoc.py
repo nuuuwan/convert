@@ -37,4 +37,3 @@ class DocXDoc(AbstractDoc):
             else:
                 doc.add_paragraph(paragraph.text)
         doc.save(file_path)
-        log.info(f"Saved {file_path}")
