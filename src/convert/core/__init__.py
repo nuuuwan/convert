@@ -3,3 +3,4 @@
 from convert.core.AbstractDoc import AbstractDoc
 from convert.core.DocXDoc import DocXDoc
 from convert.core.MarkdownDoc import MarkdownDoc
+from convert.core.TexDoc import TexDoc
