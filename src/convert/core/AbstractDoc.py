@@ -31,6 +31,7 @@ class Paragraph:
             ("‘", "'"),
             ("’", "'"),
             ("…", "..."),
+            ("*", ""),
         ]:
             text = text.replace(before, after)
 

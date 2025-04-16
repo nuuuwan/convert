@@ -1,5 +1,6 @@
 from docx import Document
 from utils import Log
+
 from convert.core.AbstractDoc import AbstractDoc, Paragraph
 
 log = Log("DocXDoc")

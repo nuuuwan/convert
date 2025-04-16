@@ -1,6 +1,7 @@
 import os
 import re
-from utils import Log, File
+
+from utils import File, Log
 
 from convert.core.AbstractDoc import AbstractDoc, Paragraph
 
