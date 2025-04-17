@@ -1,15 +1,47 @@
-\documentclass{book,13pt}
+% ---------------------------------------------------------
+% FONT
+\documentclass[12pt]{extbook}
 
 \usepackage[cmintegrals,cmbraces]{newtxmath}
 \usepackage{ebgaramond-maths}
 \usepackage[T1]{fontenc}
 
+% HEADINGS
+\makeatletter
+\renewcommand{\@makechapterhead}[1]{%
+  \vspace*{50pt}%
+  {\parindent \z@ \centering
+    \normalfont\huge\bfseries #1\par\nobreak
+    \vskip 40pt
+  }}
+\makeatother
+
+% SPACING
 \usepackage{setspace}
 \doublespacing
 
-
+% QUOTES
 \usepackage{dirtytalk}
 
+% HEADER/FOOTER
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+
+\renewcommand{\headrulewidth}{0pt}
+
+\pagestyle{fancy}
+\fancyhf{}  
+\fancyhead{}  
+\fancyfoot[C]{\thepage} 
+
+% WATERMARK
+\usepackage{draftwatermark} 
+\SetWatermarkText{@nuuuwan} 
+\SetWatermarkScale{1}           
+\SetWatermarkColor[gray]{0.975}  
+
+% ---------------------------------------------------------
+% TITLE PAGE
 \title{The Tales You Told Me}
 \author{Nuwan I. Senaratna}
 \date{April 2025}

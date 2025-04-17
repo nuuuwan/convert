@@ -97,7 +97,7 @@ class AbstractDoc(ABC):
                 doc.to_file(file_path)
 
                 for paragraph in doc.paragraphs:
-                    paragraphs.append(paragraph)
+                    paragraphs.append(paragraph.lower())
                 n_docs += 1
 
                 log.debug(f"{n_docs}) {doc.n_words:,}\t{filename}")
