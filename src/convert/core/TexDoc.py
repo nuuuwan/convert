@@ -45,11 +45,11 @@ class TexDoc(AbstractDoc):
     def write_line(paragraph: Paragraph) -> str:
         text = TexDoc.clean(paragraph.text)
         if paragraph.tag == "h1":
-            return f"\\chapter*{{{text}}}\n"
+            return f"\\chapter{{{text}}}\n"
         if paragraph.tag == "h2":
-            return f"\\section*{{{text}}}\n"
+            return f"\\section{{{text}}}\n"
         if paragraph.tag == "h3":
-            return f"\\subsection*{{{text}}}\n"
+            return f"\\subsection{{{text}}}\n"
         return f"{text}\n"
 
     def to_file(self, file_path: str) -> None:

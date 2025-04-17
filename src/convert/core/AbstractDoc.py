@@ -32,6 +32,9 @@ class Paragraph:
             ("’", "'"),
             ("…", "..."),
             ("*", ""),
+            ("> ", ""),
+            ("_", ""),
+            ("—", "-"),
         ]:
             text = text.replace(before, after)
 
@@ -79,8 +82,8 @@ class AbstractDoc(ABC):
         return self
 
     @classmethod
-    def from_dir(cls, dir_path: str, title: str) -> None:
-        paragraphs = [Paragraph("h1", title)]
+    def from_dir(cls, dir_path: str) -> None:
+        paragraphs = []
         n_docs = 0
         for filename in os.listdir(dir_path):
             if (
@@ -94,7 +97,7 @@ class AbstractDoc(ABC):
                 doc.to_file(file_path)
 
                 for paragraph in doc.paragraphs:
-                    paragraphs.append(paragraph.lower())
+                    paragraphs.append(paragraph)
                 n_docs += 1
 
                 log.debug(f"{n_docs}) {doc.n_words:,}\t{filename}")
