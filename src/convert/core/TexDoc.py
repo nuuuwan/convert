@@ -69,18 +69,18 @@ class TexDoc(AbstractDoc):
 
         # compile
         dir_output = os.path.dirname(file_path)
-        os.system(
+        cmd = (
             "pdflatex"
             + " -interaction=nonstopmode"
             + " -quiet"
             + f" -output-directory={dir_output}"
             + f" {file_path}"
         )
+        os.system(cmd)
+        os.system(cmd)
 
-        for remove_file_path in [
-            file_path.replace(".tex", ".log"),
-            file_path.replace(".tex", ".aux"),
-        ]:
+        for ext in [".aux", ".log", ".out", ".toc"]:
+            remove_file_path = file_path.replace(".tex", ext)
             if os.path.exists(remove_file_path):
                 os.remove(remove_file_path)
         log.info(f"Compiled {file_path}")
