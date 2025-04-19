@@ -100,7 +100,14 @@ class AbstractDoc(ABC):
                     paragraphs.append(paragraph)
                 n_docs += 1
 
-                log.debug(f"{n_docs}) {doc.n_words:,}\t{filename}")
+                emoji = None
+                if doc.n_words > 1_250:
+                    emoji = "🔴"
+                elif doc.n_words > 1_000:
+                    emoji = "🟡"
+
+                if emoji:
+                    log.debug(f"{emoji}{n_docs})\t{doc.n_words:,}\t{filename}")
 
         new_doc = cls(paragraphs)
         log.info(f"n_docs={n_docs:,}, n_words={new_doc.n_words:,}")
