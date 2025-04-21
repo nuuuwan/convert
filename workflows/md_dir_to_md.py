@@ -3,7 +3,7 @@ import sys
 
 from utils import Log
 
-from convert import MarkdownDoc, TexDoc
+from convert import MarkdownDoc
 
 log = Log("md_from_dir")
 
@@ -11,11 +11,6 @@ log = Log("md_from_dir")
 def main(dir_path):
     doc = MarkdownDoc.from_dir(dir_path)
     doc.to_file(os.path.join(dir_path + ".all.md"))
-
-    TexDoc.from_instance(doc).to_file(os.path.join(dir_path + ".all.tex"))
-
-    parent_dir_path = os.path.dirname(dir_path)
-    os.startfile(parent_dir_path)
 
 
 if __name__ == "__main__":

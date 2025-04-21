@@ -88,7 +88,7 @@ class TexDoc(AbstractDoc):
         File(file_path).write_lines(lines)
         log.info(f"Wrote {file_path}")
 
-        # compile
+    def compile(self, file_path: str) -> None:
         dir_output = os.path.dirname(file_path)
         cmd = (
             "pdflatex"
@@ -97,7 +97,7 @@ class TexDoc(AbstractDoc):
             + f" -output-directory={dir_output}"
             + f" {file_path}"
         )
-        for i in range(3):
+        for i in range(2):
             log.debug(f"Running Compile {i + 1}")
             os.system(cmd)
 

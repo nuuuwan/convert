@@ -24,10 +24,12 @@ class MarkdownDoc(AbstractDoc):
     def from_file(cls, file_path: str) -> None:
         assert file_path.endswith(cls.get_ext())
         paragraphs = []
-        for line in File(file_path).read_lines():
-            if line.strip():
-                paragraph = MarkdownDoc.parse_line(line)
-                paragraphs.append(paragraph)
+        # HACK to fix unicode bug in File
+        with open(file_path, "r", encoding="utf-8", errors="replace") as file:
+            for line in file:
+                if line.strip():
+                    paragraph = MarkdownDoc.parse_line(line)
+                    paragraphs.append(paragraph)
         return cls(paragraphs)
 
     @staticmethod
