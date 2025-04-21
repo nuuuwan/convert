@@ -2,19 +2,9 @@
 % FONT
 \documentclass[12pt,openany]{book}
 
-\usepackage[cmintegrals,cmbraces]{newtxmath}
-\usepackage{ebgaramond-maths}
+\usepackage[nf]{coelacanth}
 \usepackage[T1]{fontenc}
 
-% HEADINGS
-\makeatletter
-\renewcommand{\@makechapterhead}[1]{%
-  \vspace*{50pt}%
-  {\parindent \z@ \centering
-    \normalfont\huge\bfseries #1\par\nobreak
-    \vskip 40pt
-  }}
-\makeatother
 
 % SPACING
 \usepackage{setspace}
@@ -36,19 +26,28 @@
 
 % WATERMARK
 \usepackage{draftwatermark} 
-\SetWatermarkText{@nuuuwan} 
-\SetWatermarkScale{1}           
-\SetWatermarkColor[gray]{0.975}  
+\SetWatermarkText{@nuuuwan-DRAFT} 
+\SetWatermarkScale{0.5}           
+\SetWatermarkColor[gray]{0.95}  
+
+
+% LINKS
+
+\usepackage[hidelinks]{hyperref}
 
 
 % ---------------------------------------------------------
-% TITLE PAGE
+% DOCUMENT
+
+\begin{document}
+
 \title{The Tales You Told Me}
 \author{Nuwan I. Senaratna}
-\date{April 15th, 2025}
+\date
 
 \maketitle
 
+
 \tableofcontents
 
-\begin{document}
+

@@ -42,14 +42,25 @@ class TexDoc(AbstractDoc):
         return text
 
     @staticmethod
+    def get_latex_tag(tag: str) -> str:
+        if tag == "h1":
+            return "chapter"
+        if tag == "h2":
+            return "section"
+        if tag == "h3":
+            return "subsection"
+        return ""
+
+    @staticmethod
     def write_line(paragraph: Paragraph) -> str:
         text = TexDoc.clean(paragraph.text)
-        if paragraph.tag == "h1":
-            return f"\\chapter{{{text}}}\n"
-        if paragraph.tag == "h2":
-            return f"\\section{{{text}}}\n"
-        if paragraph.tag == "h3":
-            return f"\\subsection{{{text}}}\n"
+        md_tag = TexDoc.get_latex_tag(paragraph.tag)
+        if md_tag:
+            return "".join(
+                [
+                    f"\\{md_tag}{{{text}}}\n",
+                ]
+            )
         return f"{text}\n"
 
     def to_file(self, file_path: str) -> None:
