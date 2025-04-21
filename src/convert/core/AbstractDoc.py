@@ -25,7 +25,7 @@ class Paragraph:
         text = self.text.strip()
 
         for before, after in [
-            ("---", "..."),
+            ("\n---\n", "\n...\n"),
             ("“", '"'),
             ("”", '"'),
             ("‘", "'"),
@@ -108,6 +108,9 @@ class AbstractDoc(ABC):
 
                 if emoji:
                     log.debug(f"{emoji}{n_docs})\t{doc.n_words:,}\t{filename}")
+
+                if n_docs >= 10:
+                    break
 
         new_doc = cls(paragraphs)
         log.info(f"n_docs={n_docs:,}, n_words={new_doc.n_words:,}")

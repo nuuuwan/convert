@@ -6,9 +6,10 @@
 \usepackage[T1]{fontenc}
 
 
-% SPACING
+% % SPACING
 \usepackage{setspace}
 \doublespacing
+\frenchspacing
 
 % QUOTES
 \usepackage{dirtytalk}
@@ -30,10 +31,15 @@
 \SetWatermarkScale{0.5}           
 \SetWatermarkColor[gray]{0.95}  
 
-
 % LINKS
+\usepackage{hyperref}
 
-\usepackage[hidelinks]{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=cyan,
+    citecolor=red,
+}
 
 
 % ---------------------------------------------------------
@@ -41,13 +47,14 @@
 
 \begin{document}
 
+\frontmatter
 \title{The Tales You Told Me}
 \author{Nuwan I. Senaratna}
 \date
 
 \maketitle
 
-
 \tableofcontents
+\clearpage  
 
-
+\mainmatter

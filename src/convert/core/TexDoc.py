@@ -27,17 +27,23 @@ class TexDoc(AbstractDoc):
     def clean(text: str) -> str:
         text = text.encode("ascii", "ignore").decode("ascii")
 
+        if text == "...":
+            text = "\\centerline{\\ldots}"
+
         for before, after in [
             ("%", "\\%"),
             ("&", "\\&"),
             ("$", "\\$"),
+            (" - ", "---"),
+            ("...", "\\ldots"),
         ]:
             text = text.replace(before, after)
 
-        if text == "...":
-            text = "\\centerline{...}"
-
         text = TexDoc.replace_quotes_with_say(text)
+        text = text.replace(" \\say", "\n\n\\say")
+
+        while "\n\n\n" in text:
+            text = text.replace("\n\n\n", "\n\n")
 
         return text
 
@@ -87,8 +93,9 @@ class TexDoc(AbstractDoc):
             + f" -output-directory={dir_output}"
             + f" {file_path}"
         )
-        os.system(cmd)
-        os.system(cmd)
+        for i in range(3):
+            log.debug(f"Running Compile {i + 1}")
+            os.system(cmd)
 
         for ext in [".aux", ".log", ".out", ".toc"]:
             remove_file_path = file_path.replace(".tex", ext)
