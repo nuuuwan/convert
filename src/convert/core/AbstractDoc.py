@@ -86,11 +86,7 @@ class AbstractDoc(ABC):
         paragraphs = []
         n_docs = 0
         for filename in os.listdir(dir_path):
-            if (
-                filename.endswith(cls.get_ext())
-                and filename[:4] != "_all"
-                and filename[:6] != "README"
-            ):
+            if filename.endswith(cls.get_ext()):
                 file_path = os.path.join(dir_path, filename)
                 doc = cls.from_file(file_path)
                 doc.clean()
@@ -99,18 +95,6 @@ class AbstractDoc(ABC):
                 for paragraph in doc.paragraphs:
                     paragraphs.append(paragraph)
                 n_docs += 1
-
-                emoji = None
-                if doc.n_words > 1_250:
-                    emoji = "🔴"
-                elif doc.n_words > 1_000:
-                    emoji = "🟡"
-
-                if emoji:
-                    log.debug(f"{emoji}{n_docs})\t{doc.n_words:,}\t{filename}")
-
-                if n_docs >= 10:
-                    break
 
         new_doc = cls(paragraphs)
         log.info(f"n_docs={n_docs:,}, n_words={new_doc.n_words:,}")

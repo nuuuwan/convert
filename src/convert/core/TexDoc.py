@@ -61,10 +61,14 @@ class TexDoc(AbstractDoc):
     def write_line(paragraph: Paragraph) -> str:
         text = TexDoc.clean(paragraph.text)
         md_tag = TexDoc.get_latex_tag(paragraph.tag)
+
+        # \chapter*{Preface}
+        # \addcontentsline{toc}{chapter}{Preface}
         if md_tag:
             return "".join(
                 [
-                    f"\\{md_tag}{{{text}}}\n",
+                    f"\\{md_tag}*{{{text}}}\n",
+                    f"\\addcontentsline{{toc}}{{{md_tag}}}{{{text}}}\n",
                 ]
             )
         return f"{text}\n"

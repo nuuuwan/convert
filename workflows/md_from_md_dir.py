@@ -13,7 +13,6 @@ def main(dir_path):
     doc.to_file(os.path.join(dir_path + ".all.md"))
 
     TexDoc.from_instance(doc).to_file(os.path.join(dir_path + ".all.tex"))
-    DocXDoc.from_instance(doc).to_file(os.path.join(dir_path + ".all.docx"))
 
     parent_dir_path = os.path.dirname(dir_path)
     os.startfile(parent_dir_path)
