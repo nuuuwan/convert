@@ -1,18 +1,27 @@
 % ---------------------------------------------------------
-% FONT
+
 \documentclass[12pt,openany]{book}
 
+
+% FONT
 \usepackage[nf]{coelacanth}
 \usepackage[T1]{fontenc}
 
+% COLOR
+\usepackage{xcolor}
+\definecolor{maroon}{RGB}{80,25,33}
+\definecolor{green}{RGB}{0,104,71}
+\definecolor{orange}{RGB}{223,117,0}
 
-% % SPACING
+% SPACING
 \usepackage{setspace}
-\doublespacing
+\doublespacing{}
 \frenchspacing
 
 % QUOTES
 \usepackage{dirtytalk}
+\let\oldsay\say
+\renewcommand{\say}[1]{\oldsay{\textcolor{maroon}{#1}}}
 
 % HEADER/FOOTER
 \usepackage{fancyhdr}
@@ -36,9 +45,9 @@
 
 \hypersetup{
     colorlinks=true,
-    linkcolor=blue,
-    urlcolor=blue,
-    citecolor=blue,
+    linkcolor=green,
+    urlcolor=green,
+    citecolor=green,
 }
 
 
