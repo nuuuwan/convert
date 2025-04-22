@@ -28,7 +28,7 @@ class TexDoc(AbstractDoc):
         text = text.encode("ascii", "ignore").decode("ascii")
 
         if text == "...":
-            text = "\\centerline{\\ldots}"
+            text = "\\sep"
 
         for before, after in [
             ("%", "\\%"),
@@ -40,8 +40,6 @@ class TexDoc(AbstractDoc):
             text = text.replace(before, after)
 
         text = TexDoc.replace_quotes_with_say(text)
-        text = text.replace(" \\say", "\n\n\\say")
-
         while "\n\n\n" in text:
             text = text.replace("\n\n\n", "\n\n")
 
