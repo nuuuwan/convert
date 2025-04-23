@@ -2,7 +2,7 @@ import sys
 
 from utils import Log
 
-from convert import MarkdownDoc, TexDoc, DocxDoc
+from convert import DocXDoc, MarkdownDoc, TexDoc
 
 log = Log("md_from_dir")
 
@@ -15,7 +15,7 @@ def main(md_path):
     tex_doc.to_file(tex_path)
     tex_doc.compile(tex_path)
 
-    docx_doc = DocxDoc.from_instance(md_doc)
+    docx_doc = DocXDoc.from_instance(md_doc)
     docx_path = md_path[:-3] + ".docx"
     docx_doc.to_file(docx_path)
 
