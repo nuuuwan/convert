@@ -27,7 +27,7 @@ def main(dir_path):
 
     docx_doc = DocXDoc.from_instance(md_doc)
     docx_path = base_name + ".docx"
-    docx_doc.to_file(docx_path)
+    docx_doc.to_file(docx_path, add_title=True)
 
 
 if __name__ == "__main__":
