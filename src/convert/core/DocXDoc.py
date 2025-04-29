@@ -50,6 +50,9 @@ class DocXDoc(AbstractDoc):
         heading1_font.size = Pt(FONT_SIZE_NORMAL * 2)
         heading1_font.color.rgb = RGBColor(0, 0, 0)
 
+        heading1_paragraph_format = heading1_style.paragraph_format
+        heading1_paragraph_format.page_break_before = True
+
         heading1_font.element.rPr.rFonts.set(qn("w:eastAsia"), FONT_NAME)
         # Remove theme font settings by deleting the attributes
         rFonts = heading1_font.element.rPr.rFonts
