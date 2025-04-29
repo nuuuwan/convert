@@ -93,7 +93,7 @@ class TexDoc(AbstractDoc):
             + " -interaction=nonstopmode"
             + " -quiet"
             + f" -output-directory={dir_output}"
-            + f" {file_path}"
+            + f' "{file_path}"'
         )
         for i in range(2):
             log.debug(f"Running Compile {i + 1}")
