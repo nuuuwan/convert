@@ -3,13 +3,15 @@ from docx.shared import Pt, RGBColor
 from docx.oxml.ns import qn
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from utils import Log, Time, TimeFormat
-
+import os
 from convert.core.AbstractDoc import AbstractDoc, Paragraph
 
 log = Log("DocXDoc")
 
 
 class DocXDoc(AbstractDoc):
+    TEMPLATE_PATH = os.path.join("src", "convert", "core", "docx_template.docx")
+
     @classmethod
     def get_ext(cls) -> str:
         return ".docx"
@@ -108,7 +110,7 @@ class DocXDoc(AbstractDoc):
         doc.add_page_break()
 
     def to_file(self, file_path: str, add_title=False) -> None:
-        doc = Document()
+        doc = Document(self.TEMPLATE_PATH)
         self.set_style(doc)
 
         if add_title:
