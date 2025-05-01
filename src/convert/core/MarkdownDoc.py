@@ -30,7 +30,9 @@ class MarkdownDoc(AbstractDoc):
                 if line.strip():
                     paragraph = MarkdownDoc.parse_line(line)
                     paragraphs.append(paragraph)
-        return cls(paragraphs)
+        doc = cls(paragraphs)
+        doc.clean()
+        return doc
 
     @staticmethod
     def write_line(paragraph: Paragraph) -> str:

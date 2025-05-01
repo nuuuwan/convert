@@ -74,10 +74,18 @@ class AbstractDoc(ABC):
 
     def clean(self):
         new_paragraphs = []
+        has_started = False
         for paragraph in self.paragraphs:
             new_paragraph = paragraph.clean()
             if new_paragraph:
-                new_paragraphs.append(new_paragraph)
+                if (
+                    not has_started
+                    and new_paragraph.text != "..."
+                    and new_paragraph.text != "---"
+                ):
+                    has_started = True
+                if has_started:
+                    new_paragraphs.append(new_paragraph)
         self.paragraphs = new_paragraphs
         return self
 
