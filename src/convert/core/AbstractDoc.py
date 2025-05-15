@@ -57,15 +57,21 @@ class Paragraph:
         return Paragraph(Paragraph.get_lower_tag(self.tag), self.text)
 
     def get_temp_audio_file_path(self, force=False):
+        if self.text == "":
+            return None
+
         file_path = os.path.join(
             tempfile.gettempdir(), f"paragraph.{self.md5}.mp3"
         )
 
         if force or not os.path.exists(file_path):
-            tts = gTTS(self.text)
-            tts.save(file_path)
-            log.debug(f'"{self.text}" -> {file_path}')
-
+            try:
+                tts = gTTS(self.text)
+                tts.save(file_path)
+                log.debug(f'"{self.text}" -> {file_path}')
+            except Exception as e:
+                log.error(f"Error: {e}")
+                return None
         return file_path
 
 
@@ -151,6 +157,8 @@ class AbstractDoc(ABC):
         ]
         combined = AudioSegment.empty()
         for file_path in paragraph_temp_audio_file_paths:
+            if not file_path:
+                continue
             audio = AudioSegment.from_file(file_path)
             combined += audio
 

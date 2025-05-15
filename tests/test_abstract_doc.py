@@ -6,6 +6,7 @@ from convert.core.AbstractDoc import Paragraph
 TEST_DOC = AbstractDoc(
     paragraphs=[
         Paragraph(tag="p", text="Hello Sri Lanka!"),
+        Paragraph(tag="p", text=""),
         Paragraph(tag="p", text="This is a test"),
     ]
 )
