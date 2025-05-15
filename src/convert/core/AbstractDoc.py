@@ -130,8 +130,8 @@ class AbstractDoc(ABC):
 
         combined += SILENT_AUDIO_SEGMENT
         combined += END_AUDIO_SEGMENT
-        file_size = os.path.getsize(doc_audio_file_path)
         combined.export(doc_audio_file_path, format="mp3", bitrate="32k")
+        file_size = os.path.getsize(doc_audio_file_path)
         log.info(f"Wrote {doc_audio_file_path} ({file_size/1_000_000:.3f}MB)")
 
     def to_audio_files(
