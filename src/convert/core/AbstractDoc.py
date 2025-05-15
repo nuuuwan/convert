@@ -4,6 +4,8 @@ from dataclasses import dataclass
 from functools import cached_property
 
 from utils import Hash, Log
+import tempfile
+from gtts import gTTS
 
 log = Log("AbstractDoc")
 
@@ -52,6 +54,18 @@ class Paragraph:
 
     def lower(self):
         return Paragraph(Paragraph.get_lower_tag(self.tag), self.text)
+
+    def get_temp_audio_file_path(self, force=False):
+        file_path = os.path.join(
+            tempfile.gettempdir(), f"paragraph.{self.md5}.mp3"
+        )
+
+        if force or not os.path.exists(file_path):
+            tts = gTTS(self.text)
+            tts.save(file_path)
+            log.debug(f'"{self.text}" -> {file_path}')
+
+        return file_path
 
 
 @dataclass
@@ -107,3 +121,6 @@ class AbstractDoc(ABC):
         new_doc = cls(paragraphs)
         log.info(f"n_docs={n_docs:,}, n_words={new_doc.n_words:,}")
         return new_doc
+
+    def to_audio_files(self, max_words_per_part: int = 10_000) -> None:
+        pass
