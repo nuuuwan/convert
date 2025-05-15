@@ -118,5 +118,6 @@ class AbstractDoc(ABC):
         docs = self.split(max_words_per_part)
         for i, doc in enumerate(docs):
             file_path = f"{file_path_prefix}.{i:04d}.mp3"
+            log.info(f"Building {file_path}...")
             doc.to_audio_file(file_path)
         log.info(f"Exported {len(docs)} to {file_path_prefix}")
