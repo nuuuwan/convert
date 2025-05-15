@@ -66,7 +66,7 @@ class Paragraph:
             try:
                 tts = gTTS(self.text)
                 tts.save(file_path)
-                print(f'"{self.text}" -> {file_path}', end="\r")
+                print(f'"{self.text[:10]}..." -> {file_path}', end="\r")
             except Exception as e:
                 log.error(f"Error: {e}")
                 return None
