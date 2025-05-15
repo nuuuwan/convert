@@ -1,5 +1,6 @@
-import sys
 import os
+import sys
+
 from utils import Log
 
 from convert import MarkdownDoc

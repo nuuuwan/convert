@@ -1,6 +1,7 @@
 from utils import File, Log
 
-from convert.core.AbstractDoc import AbstractDoc, Paragraph
+from convert.core.AbstractDoc import AbstractDoc
+from convert.core.Paragraph import Paragraph
 
 log = Log("MarkdownDoc")
 

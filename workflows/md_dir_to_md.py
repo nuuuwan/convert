@@ -1,7 +1,7 @@
 import os
 import sys
 
-from utils import Log, TimeFormat, Time
+from utils import Log, Time, TimeFormat
 
 from convert import MarkdownDoc
 

@@ -1,16 +1,19 @@
+import os
+
 from docx import Document
-from docx.shared import Pt, RGBColor
-from docx.oxml.ns import qn
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from utils import Log, Time, TimeFormat
-import os
-from convert.core.AbstractDoc import AbstractDoc, Paragraph
+
+from convert.core.AbstractDoc import AbstractDoc
+from convert.core.Paragraph import Paragraph
 
 log = Log("DocXDoc")
 
 
 class DocXDoc(AbstractDoc):
-    TEMPLATE_PATH = os.path.join("src", "convert", "core", "docx_template.docx")
+    TEMPLATE_PATH = os.path.join(
+        "src", "convert", "core", "docx_template.docx"
+    )
 
     @classmethod
     def get_ext(cls) -> str:

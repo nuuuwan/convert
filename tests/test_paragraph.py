@@ -1,6 +1,7 @@
-import unittest
-from convert.core.AbstractDoc import Paragraph
 import os
+import unittest
+
+from convert.core.Paragraph import Paragraph
 
 
 class TestCase(unittest.TestCase):

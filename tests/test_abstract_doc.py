@@ -1,7 +1,8 @@
-import unittest
 import os
+import unittest
+
 from convert import AbstractDoc
-from convert.core.AbstractDoc import Paragraph
+from convert.core.Paragraph import Paragraph
 
 TEST_DOC = AbstractDoc(
     paragraphs=[
