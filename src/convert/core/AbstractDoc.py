@@ -112,7 +112,9 @@ class AbstractDoc(ABC):
         for paragraph in self.paragraphs:
 
             if paragraph.text == "...":
+                combined += SILENT_AUDIO_SEGMENT
                 combined += SHORT_BELL_AUDIO_SEGMENT
+                combined += SILENT_AUDIO_SEGMENT
                 continue
 
             if paragraph.tag != "p":
@@ -143,7 +145,7 @@ class AbstractDoc(ABC):
 
         combined += SILENT_AUDIO_SEGMENT
         combined += LONG_BELL_AUDIO_SEGMENT
-        combined.export(doc_audio_file_path, format="mp3", bitrate="32k")
+        combined.export(doc_audio_file_path, format="mp3", bitrate="24k")
         file_size = os.path.getsize(doc_audio_file_path)
         log.info(f"Wrote {doc_audio_file_path} ({file_size/1_000_000:.3f}MB)")
 
