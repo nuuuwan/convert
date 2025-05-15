@@ -92,7 +92,13 @@ class AbstractDoc(ABC):
 
         combined = AudioSegment.empty()
         END_AUDIO_SEGMENT = AudioSegment.from_file(
-            os.path.join("src", "media", "tabla-long.mp3")
+            os.path.join(
+                os.environ["DIR_PY"],
+                "convert",
+                "src",
+                "media",
+                "tabla-long.mp3",
+            )
         )
         SILENT_AUDIO_SEGMENT = AudioSegment.silent(duration=1000)
         for paragraph in self.paragraphs:
