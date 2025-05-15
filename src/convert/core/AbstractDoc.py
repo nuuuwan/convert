@@ -95,6 +95,14 @@ class AbstractDoc(ABC):
         for file_path in paragraph_temp_audio_file_paths:
             if not file_path:
                 continue
+            assert file_path.endswith(".mp3"), "File path must end with .mp3"
+            if not os.path.exists(file_path):
+                log.warning(f"File {file_path} does not exist. Skipping.")
+                continue
+            file_size = os.path.getsize(file_path)
+            if file_size == 0:
+                log.warning(f"File {file_path} is empty")
+                continue
             audio = AudioSegment.from_file(file_path)
             combined += audio
 

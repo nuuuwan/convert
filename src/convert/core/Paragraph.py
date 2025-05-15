@@ -55,19 +55,24 @@ class Paragraph:
         return Paragraph(Paragraph.get_lower_tag(self.tag), self.text)
 
     def get_temp_audio_file_path(self, force=False):
-        if self.text == "":
+        if self.text.strip() in ["", "...", "---"]:
             return None
 
         file_path = os.path.join(
             tempfile.gettempdir(), f"paragraph.{self.md5}.mp3"
         )
 
-        if force or not os.path.exists(file_path):
-            try:
-                tts = gTTS(self.text)
-                tts.save(file_path)
-                print(f'"{self.text[:10]}..." -> {file_path}', end="\r")
-            except Exception as e:
-                log.error(f"Error: {e}")
-                return None
-        return file_path
+        if not force and os.path.exists(file_path):
+            return file_path
+
+        try:
+            tts = gTTS(self.text)
+            tts.save(file_path)
+            file_size = os.path.getsize(file_path)
+            if file_size < 10:
+                raise Exception(f'("{self.text}") File size is too small')
+            print(f'"{self.text[:10]}..." -> {file_path}', end="\r")
+            return file_path
+        except Exception as e:
+            log.error(f'("{self.text}") {e}')
+            return None
