@@ -95,7 +95,6 @@ class AbstractDoc(ABC):
             os.path.join(
                 os.environ["DIR_PY"],
                 "convert",
-                "src",
                 "media",
                 "tabla-long.mp3",
             )
