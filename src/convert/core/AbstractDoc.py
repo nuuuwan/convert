@@ -152,7 +152,7 @@ class AbstractDoc(ABC):
     ) -> None:
         docs = self.split(max_words_per_part)
         for i, doc in enumerate(docs):
-            file_path = f"{file_path_prefix}.{i:04d}.mp3"
+            file_path = f"{file_path_prefix}.part-{i:02d}.mp3"
             log.info(f"Building {file_path}...")
             doc.to_audio_file(file_path)
 
