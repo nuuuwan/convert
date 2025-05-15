@@ -91,20 +91,33 @@ class AbstractDoc(ABC):
         ), "File path must end with .mp3"
 
         combined = AudioSegment.empty()
-        END_AUDIO_SEGMENT = AudioSegment.from_file(
+        DIR_MEDIA = os.path.join(
+            os.environ["DIR_PY"],
+            "convert",
+            "media",
+        )
+        LONG_BELL_AUDIO_SEGMENT = AudioSegment.from_file(
             os.path.join(
-                os.environ["DIR_PY"],
-                "convert",
-                "media",
+                DIR_MEDIA,
                 "tabla-long.mp3",
+            )
+        )
+        SHORT_BELL_AUDIO_SEGMENT = AudioSegment.from_file(
+            os.path.join(
+                DIR_MEDIA,
+                "tabla-short.mp3",
             )
         )
         SILENT_AUDIO_SEGMENT = AudioSegment.silent(duration=1000)
         for paragraph in self.paragraphs:
 
+            if paragraph.text == "...":
+                combined += SHORT_BELL_AUDIO_SEGMENT
+                continue
+
             if paragraph.tag != "p":
                 combined += SILENT_AUDIO_SEGMENT
-                combined += END_AUDIO_SEGMENT
+                combined += LONG_BELL_AUDIO_SEGMENT
                 combined += SILENT_AUDIO_SEGMENT
 
             paragraph_audio_file_path = paragraph.get_temp_audio_file_path()
@@ -129,7 +142,7 @@ class AbstractDoc(ABC):
                 combined += SILENT_AUDIO_SEGMENT
 
         combined += SILENT_AUDIO_SEGMENT
-        combined += END_AUDIO_SEGMENT
+        combined += LONG_BELL_AUDIO_SEGMENT
         combined.export(doc_audio_file_path, format="mp3", bitrate="32k")
         file_size = os.path.getsize(doc_audio_file_path)
         log.info(f"Wrote {doc_audio_file_path} ({file_size/1_000_000:.3f}MB)")
