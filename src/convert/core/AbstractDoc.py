@@ -134,7 +134,7 @@ class AbstractDoc(ABC):
         current_paragraphs = []
         docs = []
 
-        for i, paragraph in enumerate(self.paragraphs):
+        for paragraph in self.paragraphs:
             n_words = paragraph.n_words
             if current_n_words + n_words <= max_words_per_part:
                 current_paragraphs.append(paragraph)
