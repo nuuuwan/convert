@@ -66,12 +66,15 @@ class Paragraph:
             return file_path
 
         try:
-            tts = gTTS(self.text)
+            slow = False if self.tag == "p" else True
+
+            tts = gTTS(self.text, slow=slow)
             tts.save(file_path)
+
             file_size = os.path.getsize(file_path)
             if file_size < 10:
                 raise Exception(f'("{self.text}") File size is too small')
-            print(f'"{self.text[:10]}..." -> {file_path}', end="\r")
+            print(f'"{self.text[:10]}..." -> "{file_path}"', end="\r")
             return file_path
         except Exception as e:
             log.error(f'("{self.text}") {e}')

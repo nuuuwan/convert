@@ -6,9 +6,10 @@ from convert.core.Paragraph import Paragraph
 
 TEST_DOC = AbstractDoc(
     paragraphs=[
-        Paragraph(tag="p", text="Hello Sri Lanka!"),
+        Paragraph(tag="h1", text="Sri Lanka"),
+        Paragraph(tag="p", text="Sri Lanka is a country in South Asia."),
         Paragraph(tag="p", text=""),
-        Paragraph(tag="p", text="This is a test"),
+        Paragraph(tag="p", text="It is located in the Indian Ocean."),
     ]
 )
 
@@ -16,10 +17,12 @@ TEST_DOC = AbstractDoc(
 class TestCase(unittest.TestCase):
     def test_to_audio_file(self):
 
-        TEST_DOC.to_audio_file(os.path.join("tests", "examples", "test.mp3"))
+        TEST_DOC.to_audio_file(
+            os.path.join("tests", "examples", "test-sri-lanka.mp3")
+        )
 
     def test_to_audio_files(self):
         TEST_DOC.to_audio_files(
-            os.path.join("tests", "examples", "test-parts"),
+            os.path.join("tests", "examples", "test-sri-lanka-parts"),
             3,
         )
