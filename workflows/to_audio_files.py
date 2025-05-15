@@ -14,7 +14,7 @@ def main(md_file_path, max_words_per_part):
     assert os.path.exists(md_file_path), f"{md_file_path} does not exist"
 
     doc = MarkdownDoc.from_file(md_file_path)
-    doc.to_audio_files(md_file_path + ".audio", max_words_per_part)
+    doc.to_audio_files(md_file_path[:-3], max_words_per_part)
 
 
 if __name__ == "__main__":
