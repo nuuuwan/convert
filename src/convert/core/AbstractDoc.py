@@ -85,32 +85,48 @@ class AbstractDoc(ABC):
         log.info(f"Split into {len(docs)} parts")
         return docs
 
-    def to_audio_file(self, mp3_file_path: str) -> None:
-        assert mp3_file_path.endswith(".mp3"), "File path must end with .mp3"
-        paragraph_temp_audio_file_paths = [
-            paragraph.get_temp_audio_file_path()
-            for paragraph in self.paragraphs
-        ]
+    def to_audio_file(self, doc_audio_file_path: str) -> None:
+        assert doc_audio_file_path.endswith(
+            ".mp3"
+        ), "File path must end with .mp3"
+
         combined = AudioSegment.empty()
-        for file_path in paragraph_temp_audio_file_paths:
-            if not file_path:
+        END_AUDIO_SEGMENT = AudioSegment.from_file(
+            os.path.join("media", "tabla-long.mp3")
+        )
+        SILENT_AUDIO_SEGMENT = AudioSegment.silent(duration=1000)
+        for paragraph in self.paragraphs:
+
+            if paragraph.tag != "p":
+                combined += SILENT_AUDIO_SEGMENT
+                combined += END_AUDIO_SEGMENT
+                combined += SILENT_AUDIO_SEGMENT
+
+            paragraph_audio_file_path = paragraph.get_temp_audio_file_path()
+            if not paragraph_audio_file_path:
                 continue
-            assert file_path.endswith(".mp3"), "File path must end with .mp3"
-            if not os.path.exists(file_path):
-                log.warning(f"File {file_path} does not exist. Skipping.")
+            assert paragraph_audio_file_path.endswith(
+                ".mp3"
+            ), "File path must end with .mp3"
+            if not os.path.exists(paragraph_audio_file_path):
+                log.warning(
+                    f"File {paragraph_audio_file_path} does not exist. Skipping."
+                )
                 continue
-            file_size = os.path.getsize(file_path)
+            file_size = os.path.getsize(paragraph_audio_file_path)
             if file_size == 0:
-                log.warning(f"File {file_path} is empty")
+                log.warning(f"File {paragraph_audio_file_path} is empty")
                 continue
-            audio = AudioSegment.from_file(file_path)
+            audio = AudioSegment.from_file(paragraph_audio_file_path)
             combined += audio
 
-        combined.export(mp3_file_path, format="mp3")
-        log.info(
-            f"Exported {len(paragraph_temp_audio_file_paths)} "
-            + f"paragraphs to {mp3_file_path}"
-        )
+            if paragraph.tag != "p":
+                combined += SILENT_AUDIO_SEGMENT
+
+        combined += SILENT_AUDIO_SEGMENT
+        combined += END_AUDIO_SEGMENT
+        combined.export(doc_audio_file_path, format="mp3")
+        log.info(f"Wrote {doc_audio_file_path}")
 
     def to_audio_files(
         self, file_path_prefix: str, max_words_per_part: int = 10_000
