@@ -1,8 +1,9 @@
 import os
+import re
 import tempfile
 from dataclasses import dataclass
 from functools import cached_property
-import re
+
 from gtts import gTTS
 from utils import Hash, Log
 
