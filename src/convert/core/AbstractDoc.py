@@ -72,11 +72,14 @@ class AbstractDoc(ABC):
 
         for paragraph in self.paragraphs:
             n_words = paragraph.n_words
-            if current_n_words + n_words <= max_words_per_part:
+            if (current_n_words + n_words <= max_words_per_part) or (
+                paragraph.tag == "p"
+            ):
                 current_paragraphs.append(paragraph)
                 current_n_words += n_words
             else:
-                docs.append(AbstractDoc(current_paragraphs))
+                if current_paragraphs:
+                    docs.append(AbstractDoc(current_paragraphs))
                 current_paragraphs = [paragraph]
                 current_n_words = n_words
 
