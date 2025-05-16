@@ -10,6 +10,8 @@ TEST_DOC = AbstractDoc(
         Paragraph(tag="p", text="Sri Lanka is a country in South Asia."),
         Paragraph(tag="p", text=""),
         Paragraph(tag="p", text="It is located in the Indian Ocean."),
+        Paragraph(tag="h1", text="Colombo"),
+        Paragraph(tag="p", text="Colombo is the largest city in Sri Lanka."),
     ]
 )
 
@@ -24,5 +26,5 @@ class TestCase(unittest.TestCase):
     def test_to_audio_files(self):
         TEST_DOC.to_audio_files(
             os.path.join("tests", "examples", "test-sri-lanka-parts"),
-            3,
+            1000,
         )

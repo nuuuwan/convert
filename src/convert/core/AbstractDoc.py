@@ -112,6 +112,7 @@ class AbstractDoc(ABC):
             )
         )
         SILENT_AUDIO_SEGMENT = AudioSegment.silent(duration=1000)
+
         for paragraph in self.paragraphs:
 
             if paragraph.text == "...":
@@ -153,7 +154,7 @@ class AbstractDoc(ABC):
         log.info(f"Wrote {doc_audio_file_path} ({file_size/1_000_000:.3f}MB)")
 
     def to_audio_files(
-        self, file_path_prefix: str, max_words_per_part: int = 10_000
+        self, file_path_prefix: str, max_words_per_part: int
     ) -> None:
         docs = self.split(max_words_per_part)
         for i, doc in enumerate(docs, start=1):
