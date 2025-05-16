@@ -17,6 +17,34 @@ TEST_DOC = AbstractDoc(
 
 
 class TestCase(unittest.TestCase):
+    def test_words_set(self):
+
+        self.assertEqual(TEST_DOC.n_words, 26)
+        print(TEST_DOC.word_set)
+        self.assertEqual(
+            TEST_DOC.word_set,
+            {
+                "a",
+                "asia",
+                "city",
+                "colombo",
+                "country",
+                "in",
+                "indian",
+                "is",
+                "it",
+                "lanka",
+                "largest",
+                "located",
+                "ocean",
+                "south",
+                "sri",
+                "the",
+            },
+        )
+
+        self.assertEqual(TEST_DOC.n_unique_words, 16)
+
     def test_to_audio_file(self):
 
         TEST_DOC.to_audio_file(
