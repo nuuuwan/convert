@@ -25,6 +25,17 @@ class AbstractDoc(ABC):
     def n_words(self) -> str:
         return sum([paragraph.n_words for paragraph in self.paragraphs])
 
+    @cached_property
+    def word_set(self) -> set:
+        word_set = set()
+        for paragraph in self.paragraphs:
+            word_set.update(paragraph.word_set)
+        return word_set
+
+    @cached_property
+    def n_unique_words(self) -> int:
+        return len(self.word_set)
+
     @classmethod
     def from_instance(cls, instance) -> None:
         return cls(instance.paragraphs)
