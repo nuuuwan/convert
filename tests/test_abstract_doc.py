@@ -20,7 +20,7 @@ class TestCase(unittest.TestCase):
     def test_words_set(self):
 
         self.assertEqual(TEST_DOC.n_words, 26)
-        print(TEST_DOC.word_set)
+
         self.assertEqual(
             TEST_DOC.word_set,
             {
@@ -44,6 +44,9 @@ class TestCase(unittest.TestCase):
         )
 
         self.assertEqual(TEST_DOC.n_unique_words, 16)
+        self.assertEqual(TEST_DOC.n_paragraphs, 6)
+        self.assertAlmostEqual(TEST_DOC.n_words_per_paragraph, 26 / 6)
+        self.assertAlmostEqual(TEST_DOC.n_unique_words_per_paragraph, 16 / 6)
 
     def test_to_audio_file(self):
 

@@ -36,6 +36,22 @@ class AbstractDoc(ABC):
     def n_unique_words(self) -> int:
         return len(self.word_set)
 
+    @cached_property
+    def n_paragraphs(self) -> int:
+        return len(self.paragraphs)
+
+    @cached_property
+    def n_words_per_paragraph(self) -> int:
+        return self.n_words / self.n_paragraphs if self.n_paragraphs > 0 else 0
+
+    @cached_property
+    def n_unique_words_per_paragraph(self) -> int:
+        return (
+            self.n_unique_words / self.n_paragraphs
+            if self.n_paragraphs > 0
+            else 0
+        )
+
     @classmethod
     def from_instance(cls, instance) -> None:
         return cls(instance.paragraphs)
