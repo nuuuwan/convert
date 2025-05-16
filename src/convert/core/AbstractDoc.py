@@ -65,27 +65,45 @@ class AbstractDoc(ABC):
         log.info(f"n_docs={n_docs:,}, n_words={new_doc.n_words:,}")
         return new_doc
 
-    def split(self, max_words_per_part: int = 10_000) -> list["AbstractDoc"]:
-        current_n_words = 0
+    def split_by_header_group(self) -> list["AbstractDoc"]:
         current_paragraphs = []
         docs = []
-
         for paragraph in self.paragraphs:
-            n_words = paragraph.n_words
-            if (current_n_words + n_words <= max_words_per_part) or (
-                paragraph.tag == "p"
-            ):
-                current_paragraphs.append(paragraph)
-                current_n_words += n_words
-            else:
+            if paragraph.tag.startswith("h"):
                 if current_paragraphs:
                     docs.append(AbstractDoc(current_paragraphs))
                 current_paragraphs = [paragraph]
-                current_n_words = n_words
+            else:
+                current_paragraphs.append(paragraph)
 
         if current_paragraphs:
             docs.append(AbstractDoc(current_paragraphs))
-        log.info(f"Split into {len(docs)} parts")
+        log.info(f"Split into {len(docs)} header groups")
+        return docs
+
+    def split(self, max_words: int) -> list["AbstractDoc"]:
+        docs_by_header_group = self.split_by_header_group()
+        docs = []
+        current_n_words = 0
+        current_doc = None
+
+        for doc in docs_by_header_group:
+            if doc.n_words + current_n_words <= max_words:
+                current_n_words += doc.n_words
+                if current_doc:
+                    current_doc.paragraphs.extend(doc.paragraphs)
+                else:
+                    current_doc = doc
+            else:
+                if current_doc:
+                    docs.append(current_doc)
+                current_doc = doc
+                current_n_words = doc.n_words
+
+        if current_doc:
+            docs.append(current_doc)
+
+        log.info(f"Split into {len(docs)} of max_words={max_words:,}")
         return docs
 
     def to_audio_file(self, doc_audio_file_path: str) -> None:
@@ -149,7 +167,7 @@ class AbstractDoc(ABC):
 
         combined += SILENT_AUDIO_SEGMENT
         combined += LONG_BELL_AUDIO_SEGMENT
-        combined.export(doc_audio_file_path, format="mp3", bitrate="24k")
+        combined.export(doc_audio_file_path, format="mp3", bitrate="16k")
         file_size = os.path.getsize(doc_audio_file_path)
         log.info(f"Wrote {doc_audio_file_path} ({file_size/1_000_000:.3f}MB)")
 

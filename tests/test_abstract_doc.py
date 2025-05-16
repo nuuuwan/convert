@@ -26,5 +26,5 @@ class TestCase(unittest.TestCase):
     def test_to_audio_files(self):
         TEST_DOC.to_audio_files(
             os.path.join("tests", "examples", "test-sri-lanka-parts"),
-            1000,
+            20,
         )
