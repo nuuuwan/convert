@@ -2,7 +2,7 @@ import os
 import tempfile
 from dataclasses import dataclass
 from functools import cached_property
-
+import re
 from gtts import gTTS
 from utils import Hash, Log
 
@@ -19,8 +19,22 @@ class Paragraph:
         return Hash.md5(self.tag + ":" + self.text)
 
     @cached_property
+    def words(self) -> list:
+        # replace non-alphabetical
+        x = re.sub(r"[^a-z\s]", " ", self.text.lower())
+        return x.split()
+
+    @cached_property
+    def word_set(self) -> set:
+        return set(self.words)
+
+    @cached_property
     def n_words(self) -> int:
-        return len(self.text.split())
+        return len(self.words)
+
+    @cached_property
+    def n_unique_words(self) -> int:
+        return len(self.word_set)
 
     def clean(self):
         text = self.text.strip()
