@@ -54,6 +54,24 @@ class AbstractDoc(ABC):
             else 0
         )
 
+    @cached_property
+    def word_to_n(self) -> dict:
+        word_to_n = {}
+        for paragraph in self.paragraphs:
+            for word, n in paragraph.word_to_n.items():
+                if word not in word_to_n:
+                    word_to_n[word] = 0
+                word_to_n[word] += n
+
+        word_to_n = {
+            k: v
+            for k, v in sorted(
+                word_to_n.items(),
+                key=lambda item: (-item[1], item[0]),
+            )
+        }
+        return word_to_n
+
     @classmethod
     def from_instance(cls, instance) -> None:
         return cls(instance.paragraphs)

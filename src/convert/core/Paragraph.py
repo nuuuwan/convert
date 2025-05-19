@@ -7,6 +7,8 @@ from functools import cached_property
 from gtts import gTTS
 from utils import Hash, Log
 
+from convert.core.StopWords import StopWords
+
 log = Log("Paragraph")
 
 
@@ -24,6 +26,17 @@ class Paragraph:
         # replace non-alphabetical
         x = re.sub(r"[^a-z\s]", " ", self.text.lower())
         return x.split()
+
+    @cached_property
+    def word_to_n(self) -> dict:
+        word_to_n = {}
+        for word in self.words:
+            if word in StopWords.SET:
+                continue
+            if word not in word_to_n:
+                word_to_n[word] = 0
+            word_to_n[word] += 1
+        return word_to_n
 
     @cached_property
     def word_set(self) -> set:

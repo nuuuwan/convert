@@ -48,6 +48,24 @@ class TestCase(unittest.TestCase):
         self.assertAlmostEqual(TEST_DOC.n_words_per_paragraph, 26 / 6)
         self.assertAlmostEqual(TEST_DOC.n_unique_words_per_paragraph, 16 / 6)
 
+        print(TEST_DOC.word_to_n)
+        self.assertEqual(
+            TEST_DOC.word_to_n,
+            {
+                "lanka": 3,
+                "sri": 3,
+                "colombo": 2,
+                "asia": 1,
+                "city": 1,
+                "country": 1,
+                "indian": 1,
+                "largest": 1,
+                "located": 1,
+                "ocean": 1,
+                "south": 1,
+            },
+        )
+
     def test_to_audio_file(self):
 
         TEST_DOC.to_audio_file(
