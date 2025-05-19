@@ -24,7 +24,9 @@ class Paragraph:
     @cached_property
     def words(self) -> list:
         # replace non-alphabetical
-        x = re.sub(r"[^a-z\s]", " ", self.text.lower())
+        x = self.text.lower()
+        x = re.sub(r"'", "", x)
+        x = re.sub(r"[^a-z\s]", " ", x)
         return x.split()
 
     @cached_property

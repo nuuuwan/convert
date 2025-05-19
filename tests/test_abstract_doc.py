@@ -48,7 +48,6 @@ class TestCase(unittest.TestCase):
         self.assertAlmostEqual(TEST_DOC.n_words_per_paragraph, 26 / 6)
         self.assertAlmostEqual(TEST_DOC.n_unique_words_per_paragraph, 16 / 6)
 
-        print(TEST_DOC.word_to_n)
         self.assertEqual(
             TEST_DOC.word_to_n,
             {
