@@ -9,21 +9,16 @@ log = Log("MarkdownDoc")
 class MarkdownDoc(AbstractDoc):
     H_LEVELS = 4
 
-    @classmethod
-    def get_ext(cls) -> str:
-        return ".md"
-
     @staticmethod
     def parse_line(line: str) -> Paragraph:
         for ih in range(0, MarkdownDoc.H_LEVELS):
             if line.startswith(f"{'#' * (ih + 1)} "):
-                return Paragraph(f"h{ih + 1}", line[ih + 2:].strip())
+                return Paragraph(f"h{ih + 1}", line[ih + 2 :].strip())
 
         return Paragraph("p", line.strip())
 
     @classmethod
     def from_file(cls, file_path: str) -> None:
-        assert file_path.endswith(cls.get_ext())
         paragraphs = []
         # HACK to fix unicode bug in File
         with open(file_path, "r", encoding="utf-8", errors="replace") as file:

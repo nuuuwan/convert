@@ -42,9 +42,7 @@ class AbstractDoc(ABC, AbstractDocAudio):
 
     @cached_property
     def n_words_per_paragraph(self) -> int:
-        return (
-            self.n_words / self.n_paragraphs if self.n_paragraphs > 0 else 0
-        )
+        return self.n_words / self.n_paragraphs if self.n_paragraphs > 0 else 0
 
     @cached_property
     def n_unique_words_per_paragraph(self) -> int:
@@ -92,22 +90,3 @@ class AbstractDoc(ABC, AbstractDocAudio):
                     new_paragraphs.append(new_paragraph)
         self.paragraphs = new_paragraphs
         return self
-
-    @classmethod
-    def from_dir(cls, dir_path: str) -> None:
-        paragraphs = []
-        n_docs = 0
-        for filename in os.listdir(dir_path):
-            if filename.endswith(cls.get_ext()):
-                file_path = os.path.join(dir_path, filename)
-                doc = cls.from_file(file_path)
-                doc.clean()
-                doc.to_file(file_path)
-
-                for paragraph in doc.paragraphs:
-                    paragraphs.append(paragraph)
-                n_docs += 1
-
-        new_doc = cls(paragraphs)
-        log.info(f"n_docs={n_docs:,}, n_words={new_doc.n_words:,}")
-        return new_doc

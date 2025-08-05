@@ -10,9 +10,6 @@ log = Log("TexDoc")
 
 
 class TexDoc(AbstractDoc):
-    @classmethod
-    def get_ext(cls) -> str:
-        return ".tex"
 
     @staticmethod
     def replace_quotes_with_say(text):

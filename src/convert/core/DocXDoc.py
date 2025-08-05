@@ -10,10 +10,6 @@ log = Log("DocXDoc")
 
 class DocXDoc(AbstractDoc):
 
-    @classmethod
-    def get_ext(cls) -> str:
-        return ".docx"
-
     @staticmethod
     def parse_docx_paragraph(docx_paragraph) -> Paragraph:
         if docx_paragraph.style.name.startswith("Heading"):
@@ -23,7 +19,6 @@ class DocXDoc(AbstractDoc):
 
     @classmethod
     def from_file(cls, file_path: str) -> None:
-        assert file_path.endswith(cls.get_ext())
         doc = Document(file_path)
         paragraphs = []
         for docx_paragraph in doc.paragraphs:
