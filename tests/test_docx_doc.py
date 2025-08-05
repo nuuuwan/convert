@@ -11,11 +11,11 @@ class TestCase(unittest.TestCase):
 
     def test_hash(self):
         doc = self.TEST_DOCX_DOC
-        self.assertEqual(doc.md5, "ea8b7080a84d0fefd8e03fa334be63ca")
+        self.assertEqual(doc.md5, "6e9efc73a40224922d1b3435d2cd43ed")
 
     def test_from_file(self):
         doc = self.TEST_DOCX_DOC
-        self.assertEqual(len(doc.paragraphs), 4)
+        self.assertEqual(len(doc.paragraphs), 3)
 
     def test_to_file(self):
         doc = self.TEST_DOCX_DOC

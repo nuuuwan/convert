@@ -1,6 +1,7 @@
 *.mp3
 .DS_Store
 tests/examples-output
+~*
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
