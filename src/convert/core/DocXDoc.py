@@ -2,7 +2,7 @@ import os
 
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
-from utils import Log, Time, TimeFormat
+from utils import Log
 
 from convert.core.AbstractDoc import AbstractDoc
 from convert.core.Paragraph import Paragraph
@@ -39,23 +39,8 @@ class DocXDoc(AbstractDoc):
         doc.clean()
         return doc
 
-    def add_title_etc(self, doc: Document) -> None:
-        title = doc.add_paragraph("The Lies You Told Me")
-        title.style = "Custom Title"
-
-        author = doc.add_paragraph("Nuwan I. Senaratna")
-        author.style = "Custom Title Author"
-
-        date = doc.add_paragraph(TimeFormat("%b %d, %Y").format(Time.now()))
-        date.style = "Custom Title Date"
-
-        doc.add_page_break()
-
-    def to_file(self, file_path: str, add_title=False) -> None:
+    def to_file(self, file_path: str) -> None:
         doc = Document(self.TEMPLATE_PATH)
-
-        if add_title:
-            self.add_title_etc(doc)
 
         for paragraph in self.paragraphs:
             if paragraph.tag.startswith("h"):
