@@ -64,40 +64,57 @@ class AbstractDocAudio:
         log.info(f"Split into {len(docs)} of max_words={max_words:,}")
         return docs
 
-    def __get_audio_for_paragraph__(self, paragraph) -> AudioSegment:
+    def __get_audio_for_separator__(self) -> AudioSegment:
         combined = AudioSegment.empty()
-        if paragraph.text == "...":
-            combined += self.SILENT_AUDIO_SEGMENT
-            combined += self.SHORT_BELL_AUDIO_SEGMENT
-            combined += self.SILENT_AUDIO_SEGMENT
-            return combined
+        combined += self.SILENT_AUDIO_SEGMENT
+        combined += self.SHORT_BELL_AUDIO_SEGMENT
+        combined += self.SILENT_AUDIO_SEGMENT
+        return combined
 
-        if paragraph.tag != "p":
-            combined += self.SILENT_AUDIO_SEGMENT
-            combined += self.LONG_BELL_AUDIO_SEGMENT
-            combined += self.SILENT_AUDIO_SEGMENT
+    def __get_audio_for_header_space__(self) -> AudioSegment:
+        combined = AudioSegment.empty()
+        combined += self.SILENT_AUDIO_SEGMENT
+        combined += self.LONG_BELL_AUDIO_SEGMENT
+        combined += self.SILENT_AUDIO_SEGMENT
+        return combined
 
-        paragraph_audio_file_path = paragraph.get_temp_audio_file_path()
-        if not paragraph_audio_file_path:
-            return combined
+    @staticmethod
+    def __validate_audio_file_path__(paragraph_audio_file_path) -> bool:
 
         if not os.path.exists(paragraph_audio_file_path):
             log.warning(
                 f"File {paragraph_audio_file_path} does not exist. Skip."
             )
-            return combined
+            return False
 
-        file_size = os.path.getsize(paragraph_audio_file_path)
-        if file_size == 0:
+        if os.path.getsize(paragraph_audio_file_path) == 0:
             log.warning(f"File {paragraph_audio_file_path} is empty")
+            return False
+
+        return paragraph_audio_file_path
+
+    def __get_audio_from_file_path__(self, paragraph) -> AudioSegment:
+        combined = AudioSegment.empty()
+
+        paragraph_audio_file_path = paragraph.get_temp_audio_file_path()
+        if not self.__validate_audio_file_path__(paragraph_audio_file_path):
             return combined
 
-        audio = AudioSegment.from_file(paragraph_audio_file_path)
-        combined += audio
-
+        combined += AudioSegment.from_file(paragraph_audio_file_path)
         if paragraph.tag != "p":
             combined += self.SILENT_AUDIO_SEGMENT
 
+        return combined
+
+    def __get_audio_for_paragraph__(self, paragraph) -> AudioSegment:
+        combined = AudioSegment.empty()
+        if paragraph.text == "...":
+            return self.__get_audio_for_separator__()
+
+        if paragraph.tag != "p":
+            combined += self.__get_audio_for_header_space__()
+
+        combined += self.__get_audio_from_file_path__(paragraph)
         return combined
 
     def to_audio_file(self, doc_audio_file_path: str) -> None:
