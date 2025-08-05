@@ -80,18 +80,18 @@ class AbstractDocAudio:
         paragraph_audio_file_path = paragraph.get_temp_audio_file_path()
         if not paragraph_audio_file_path:
             return combined
-        assert paragraph_audio_file_path.endswith(
-            ".mp3"
-        ), "File path must end with .mp3"
+
         if not os.path.exists(paragraph_audio_file_path):
             log.warning(
                 f"File {paragraph_audio_file_path} does not exist. Skip."
             )
             return combined
+
         file_size = os.path.getsize(paragraph_audio_file_path)
         if file_size == 0:
             log.warning(f"File {paragraph_audio_file_path} is empty")
             return combined
+
         audio = AudioSegment.from_file(paragraph_audio_file_path)
         combined += audio
 
