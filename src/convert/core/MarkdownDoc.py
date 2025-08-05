@@ -7,14 +7,15 @@ log = Log("MarkdownDoc")
 
 
 class MarkdownDoc(AbstractDoc):
+    H_LEVELS = 4
+
     @classmethod
     def get_ext(cls) -> str:
         return ".md"
 
     @staticmethod
     def parse_line(line: str) -> Paragraph:
-
-        for ih in range(0, 4):
+        for ih in range(0, MarkdownDoc.H_LEVELS):
             if line.startswith(f"{'#' * (ih + 1)} "):
                 return Paragraph(f"h{ih + 1}", line[ih + 2:].strip())
 
@@ -36,12 +37,10 @@ class MarkdownDoc(AbstractDoc):
 
     @staticmethod
     def write_line(paragraph: Paragraph) -> str:
-        if paragraph.tag == "h1":
-            return f"# {paragraph.text}\n"
-        if paragraph.tag == "h2":
-            return f"## {paragraph.text}\n"
-        if paragraph.tag == "h3":
-            return f"### {paragraph.text}\n"
+        for ih in range(0, MarkdownDoc.H_LEVELS):
+            if paragraph.tag == f"h{ih + 1}":
+                return f"{'#' * (ih + 1)} {paragraph.text}\n"
+
         return f"{paragraph.text}\n"
 
     def to_file(self, file_path: str) -> None:
