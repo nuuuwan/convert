@@ -1,4 +1,3 @@
-
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from utils import Log
