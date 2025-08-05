@@ -48,13 +48,11 @@ class TexDoc(AbstractDoc):
 
     @staticmethod
     def get_latex_tag(tag: str) -> str:
-        if tag == "h1":
-            return "chapter"
-        if tag == "h2":
-            return "section"
-        if tag == "h3":
-            return "subsection"
-        return ""
+        return {
+            "h1": "chapter",
+            "h2": "section",
+            "h3": "subsection",
+        }.get(tag, "")
 
     @staticmethod
     def write_line(paragraph: Paragraph) -> str:
