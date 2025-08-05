@@ -13,12 +13,11 @@ class MarkdownDoc(AbstractDoc):
 
     @staticmethod
     def parse_line(line: str) -> Paragraph:
-        if line.startswith("# "):
-            return Paragraph("h1", line[2:].strip())
-        if line.startswith("## "):
-            return Paragraph("h2", line[3:].strip())
-        if line.startswith("### "):
-            return Paragraph("h3", line[4:].strip())
+
+        for ih in range(0, 4):
+            if line.startswith(f"{'#' * (ih + 1)} "):
+                return Paragraph(f"h{ih + 1}", line[ih + 2:].strip())
+
         return Paragraph("p", line.strip())
 
     @classmethod
