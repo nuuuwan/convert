@@ -1,5 +1,4 @@
 import os
-import shutil
 
 from utils import Log
 
@@ -23,6 +22,8 @@ class MarkdownDirDoc(AbstractDoc):
         for dir_h1_name in os.listdir(file_path):
             dir_h1_path = os.path.join(file_path, dir_h1_name)
             if not os.path.isdir(dir_h1_path):
+                continue
+            if dir_h1_name.startswith("."):
                 continue
             paragraphs.append(Paragraph("h1", dir_h1_name))
             for file_name in os.listdir(dir_h1_path):
@@ -49,20 +50,22 @@ class MarkdownDirDoc(AbstractDoc):
                 idx[cur_h1][paragraph.text] = [paragraph]
                 cur_h2 = paragraph.text
             else:
-                assert cur_h1 and cur_h2
-                idx[cur_h1][cur_h2].append(paragraph)
+                if cur_h1 and cur_h2:
+                    idx[cur_h1][cur_h2].append(paragraph)
+                else:
+                    log.warning(f'No headings. Skipping "{paragraph.text}".')
 
         return idx
 
     def to_file(self, file_path: str) -> None:
-        if os.path.exists(file_path):
-            assert os.path.isdir(file_path)
-            shutil.rmtree(file_path)
+        if not os.path.exists(file_path):
+            os.makedirs(file_path, exist_ok=True)
 
         idx = self.__h1_to_h2_to_paragraphs__()
         for h1_name, h2_dict in idx.items():
             h1_path = os.path.join(file_path, h1_name)
-            os.makedirs(h1_path, exist_ok=True)
+            if not os.path.exists(h1_path):
+                os.makedirs(h1_path, exist_ok=True)
             for h2_name, paragraphs in h2_dict.items():
                 md_path = os.path.join(h1_path, f"{h2_name}.md")
                 MarkdownDoc(paragraphs).to_file(md_path)

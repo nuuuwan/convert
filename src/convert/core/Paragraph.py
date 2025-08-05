@@ -54,21 +54,6 @@ class Paragraph:
 
     def clean(self):
         text = self.text.strip()
-
-        for before, after in [
-            ("\n---\n", "\n...\n"),
-            ("“", '"'),
-            ("”", '"'),
-            ("‘", "'"),
-            ("’", "'"),
-            ("…", "..."),
-            ("*", ""),
-            ("> ", ""),
-            ("_", ""),
-            ("—", "-"),
-        ]:
-            text = text.replace(before, after)
-
         if text:
             return Paragraph(self.tag, text)
         return None
