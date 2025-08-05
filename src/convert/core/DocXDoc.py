@@ -1,4 +1,3 @@
-import os
 
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
@@ -11,9 +10,6 @@ log = Log("DocXDoc")
 
 
 class DocXDoc(AbstractDoc):
-    TEMPLATE_PATH = os.path.join(
-        "src", "convert", "core", "docx_template.docx"
-    )
 
     @classmethod
     def get_ext(cls) -> str:
@@ -40,7 +36,7 @@ class DocXDoc(AbstractDoc):
         return doc
 
     def to_file(self, file_path: str) -> None:
-        doc = Document(self.TEMPLATE_PATH)
+        doc = Document()
 
         for paragraph in self.paragraphs:
             if paragraph.tag.startswith("h"):
