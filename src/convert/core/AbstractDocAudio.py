@@ -44,18 +44,14 @@ class AbstractDocAudio:
         return docs
 
     def split(self, max_words: int) -> list["AbstractDocAudio"]:
-        docs_by_header_group = self.split_by_header_group()
         docs = []
         current_n_words = 0
         current_doc = None
 
-        for doc in docs_by_header_group:
-            if doc.n_words + current_n_words <= max_words:
+        for doc in self.split_by_header_group():
+            if current_doc and current_n_words + doc.n_words <= max_words:
+                current_doc.paragraphs.extend(doc.paragraphs)
                 current_n_words += doc.n_words
-                if current_doc:
-                    current_doc.paragraphs.extend(doc.paragraphs)
-                else:
-                    current_doc = doc
             else:
                 if current_doc:
                     docs.append(current_doc)
