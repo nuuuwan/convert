@@ -91,13 +91,18 @@ class AbstractDocAudio:
             log.warning(f"File {paragraph_audio_file_path} is empty")
             return False
 
-        return paragraph_audio_file_path
+        return True
 
     def __get_audio_from_file_path__(self, paragraph) -> AudioSegment:
         combined = AudioSegment.empty()
 
         paragraph_audio_file_path = paragraph.get_temp_audio_file_path()
-        if not self.__validate_audio_file_path__(paragraph_audio_file_path):
+        if (
+            not paragraph_audio_file_path
+            or not self.__validate_audio_file_path__(
+                paragraph_audio_file_path
+            )
+        ):
             return combined
 
         combined += AudioSegment.from_file(paragraph_audio_file_path)
