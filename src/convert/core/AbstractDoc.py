@@ -1,4 +1,3 @@
-import os
 from abc import ABC
 from dataclasses import dataclass
 from functools import cached_property
@@ -42,7 +41,9 @@ class AbstractDoc(ABC, AbstractDocAudio):
 
     @cached_property
     def n_words_per_paragraph(self) -> int:
-        return self.n_words / self.n_paragraphs if self.n_paragraphs > 0 else 0
+        return (
+            self.n_words / self.n_paragraphs if self.n_paragraphs > 0 else 0
+        )
 
     @cached_property
     def n_unique_words_per_paragraph(self) -> int:

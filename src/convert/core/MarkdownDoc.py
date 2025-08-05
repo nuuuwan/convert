@@ -13,7 +13,7 @@ class MarkdownDoc(AbstractDoc):
     def parse_line(line: str) -> Paragraph:
         for ih in range(0, MarkdownDoc.H_LEVELS):
             if line.startswith(f"{'#' * (ih + 1)} "):
-                return Paragraph(f"h{ih + 1}", line[ih + 2 :].strip())
+                return Paragraph(f"h{ih + 1}", line[ih + 2:].strip())
 
         return Paragraph("p", line.strip())
 
