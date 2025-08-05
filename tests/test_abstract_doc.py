@@ -14,6 +14,24 @@ TEST_DOC = AbstractDoc(
         Paragraph(tag="p", text="Colombo is the largest city in Sri Lanka."),
     ]
 )
+TEST_WORD_SET = {
+    "a",
+    "asia",
+    "city",
+    "colombo",
+    "country",
+    "in",
+    "indian",
+    "is",
+    "it",
+    "lanka",
+    "largest",
+    "located",
+    "ocean",
+    "south",
+    "sri",
+    "the",
+}
 
 
 class TestCase(unittest.TestCase):
@@ -23,24 +41,7 @@ class TestCase(unittest.TestCase):
 
         self.assertEqual(
             TEST_DOC.word_set,
-            {
-                "a",
-                "asia",
-                "city",
-                "colombo",
-                "country",
-                "in",
-                "indian",
-                "is",
-                "it",
-                "lanka",
-                "largest",
-                "located",
-                "ocean",
-                "south",
-                "sri",
-                "the",
-            },
+            TEST_WORD_SET,
         )
 
         self.assertEqual(TEST_DOC.n_unique_words, 16)
