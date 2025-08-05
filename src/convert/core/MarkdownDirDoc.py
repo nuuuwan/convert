@@ -44,7 +44,7 @@ class MarkdownDirDoc(AbstractDoc):
                 cur_h1 = paragraph.text
             elif paragraph.tag == "h2":
                 assert cur_h1
-                idx[cur_h1][paragraph.text] = []
+                idx[cur_h1][paragraph.text] = [paragraph]
                 cur_h2 = paragraph.text
             else:
                 assert cur_h1 and cur_h2
