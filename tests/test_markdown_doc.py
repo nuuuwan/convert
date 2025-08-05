@@ -19,7 +19,7 @@ class TestCase(unittest.TestCase):
 
     def test_to_file(self):
         doc = self.TEST_MARKDOWN_DOC
-        doc2_path = os.path.join("tests", "examples", "test2.md")
+        doc2_path = os.path.join("tests", "examples-output", "test2.md")
         doc.to_file(doc2_path)
         doc2 = MarkdownDoc.from_file(doc2_path)
         self.assertEqual(doc2.md5, doc.md5)

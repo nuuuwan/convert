@@ -16,7 +16,7 @@ class TestCase(unittest.TestCase):
         doc = MarkdownDoc.from_instance(self.TEST_MARKDOWN_DOC)
         doc2 = DocXDoc.from_instance(doc)
 
-        doc2_path = os.path.join("tests", "examples", "test2.docx")
+        doc2_path = os.path.join("tests", "examples-output", "test2.docx")
         doc2.to_file(doc2_path)
         doc3 = DocXDoc.from_file(doc2_path)
 
@@ -26,7 +26,7 @@ class TestCase(unittest.TestCase):
         doc = DocXDoc.from_instance(self.TEST_DOCX_DOC)
         doc2 = MarkdownDoc.from_instance(doc)
 
-        doc2_path = os.path.join("tests", "examples", "test2.md")
+        doc2_path = os.path.join("tests", "examples-output", "test2.md")
         doc2.to_file(doc2_path)
         doc3 = MarkdownDoc.from_file(doc2_path)
 

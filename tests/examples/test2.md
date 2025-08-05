@@ -1,7 +1,0 @@
-# Sri Lanka
-
-Sri Lanka,[a] historically known as Ceylon,[b] and officially the Democratic Socialist Republic of Sri Lanka, is an island country in South Asia. It lies in the Indian Ocean, southwest of the Bay of Bengal, separated from the Indian peninsula by the Gulf of Mannar and the Palk Strait. It shares a maritime border with the Maldives in the southwest and India in the northwest. Sri Jayawardenepura Kotte is the legislative capital of Sri Lanka and the largest city, Colombo is the administrative and judicial capital which is the nation's political, financial and cultural centre. Kandy is the second-largest urban area and also the capital of the last native kingdom of Sri Lanka. The most spoken language Sinhala, is spoken by the majority of the population (approximately 17 million). Tamil is also spoken by approximately five million people, making it the second most-spoken language in Sri Lanka.
-
-## Toponymy
-
-In antiquity, Sri Lanka was known to travellers by a variety of names. According to the Mahāvaṃsa, the legendary Prince Vijaya named the island Tambapaṇṇĩ ("copper-red hands" or "copper-red earth"), because his followers' hands were reddened by the red soil of the area where he landed.[20][21] In Hindu mythology, the term Lankā ("Island") appears but it is unknown whether it refers to the island. The Tamil term Eelam (Tamil: ஈழம், romanized: īḻam) was used to designate the whole island in Sangam literature.[22][23] The island was known under Chola rule as Mummudi Cholamandalam ("realm of the three crowned Cholas").[24]

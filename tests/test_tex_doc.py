@@ -13,7 +13,9 @@ class TestCase(unittest.TestCase):
                 os.path.join("tests", "examples", "test.md")
             )
         )
-        doc2.to_file(os.path.join("tests", "examples", "test2.tex"))
+        doc2.to_file(os.path.join("tests", "examples-output", "test2.tex"))
         self.assertTrue(
-            os.path.exists(os.path.join("tests", "examples", "test2.tex"))
+            os.path.exists(
+                os.path.join("tests", "examples-output", "test2.tex")
+            )
         )
