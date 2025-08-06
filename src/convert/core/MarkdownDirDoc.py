@@ -19,14 +19,14 @@ class MarkdownDirDoc(AbstractDoc):
     def from_file(cls, file_path: str) -> "MarkdownDirDoc":
         assert os.path.isdir(file_path)
         paragraphs = []
-        for dir_h1_name in os.listdir(file_path):
+        for dir_h1_name in sorted(os.listdir(file_path)):
             dir_h1_path = os.path.join(file_path, dir_h1_name)
             if not os.path.isdir(dir_h1_path):
                 continue
             if dir_h1_name.startswith("."):
                 continue
             paragraphs.append(Paragraph("h1", dir_h1_name))
-            for file_name in os.listdir(dir_h1_path):
+            for file_name in sorted(os.listdir(dir_h1_path)):
                 if not file_name.endswith(".md"):
                     continue
                 md_path = os.path.join(dir_h1_path, file_name)

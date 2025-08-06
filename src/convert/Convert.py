@@ -29,6 +29,6 @@ class Convert:
         dest_cls = Convert.get_doc_cls(dest_path)
 
         doc = source_cls.from_file(source_path)
-        dest_cls(doc.paragraphs).to_file(dest_path)
+        dest_cls.from_instance(doc).to_file(dest_path)
 
         log.info(f'Converted "{source_path}" to "{dest_path}"')
