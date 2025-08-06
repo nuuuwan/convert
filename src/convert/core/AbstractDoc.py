@@ -83,3 +83,13 @@ class AbstractDoc(ABC, AbstractDocAudio):
                 new_paragraphs.append(new_paragraph)
         self.paragraphs = new_paragraphs
         return self
+
+    def level_up(self):
+        return self.__class__(
+            [paragraph.level_up() for paragraph in self.paragraphs]
+        )
+
+    def level_down(self):
+        return self.__class__(
+            [paragraph.level_down() for paragraph in self.paragraphs]
+        )

@@ -58,17 +58,6 @@ class Paragraph:
             return Paragraph(self.tag, text)
         return None
 
-    @staticmethod
-    def get_lower_tag(tag):
-        if tag == "h1":
-            return "h2"
-        elif tag == "h2":
-            return "h3"
-        return "p"
-
-    def lower(self):
-        return Paragraph(Paragraph.get_lower_tag(self.tag), self.text)
-
     def __get_temp_audio_file_path_hot__(self, file_path):
 
         try:
@@ -97,3 +86,17 @@ class Paragraph:
             return file_path
 
         return self.__get_temp_audio_file_path_hot__(file_path)
+
+    @staticmethod
+    def get_higher_tag(tag: str) -> str:
+        return {"h2": "h1", "h3": "h2", "h4": "h3", "p": "p"}.get(tag, tag)
+
+    @staticmethod
+    def get_lower_tag(tag: str) -> str:
+        return {"h1": "h2", "h2": "h3", "h3": "h4", "p": "p"}.get(tag, tag)
+
+    def level_up(self):
+        return Paragraph(Paragraph.get_higher_tag(self.tag), self.text)
+
+    def level_down(self):
+        return Paragraph(Paragraph.get_lower_tag(self.tag), self.text)

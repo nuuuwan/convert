@@ -77,3 +77,33 @@ class TestCaseAbstractDoc(unittest.TestCase):
             os.path.join("tests", "examples-output", "test-sri-lanka-parts"),
             20,
         )
+
+    def test_level_up(self):
+        doc = TEST_DOC.level_up()
+        doc.paragraphs = [
+            Paragraph(tag="h1", text="Sri Lanka"),
+            Paragraph(tag="h1", text="1. Colombo"),
+            Paragraph(
+                tag="p", text="Colombo is the largest city in Sri Lanka."
+            ),
+            Paragraph(tag="h1", text="2. Anuradhapura"),
+            Paragraph(
+                tag="p",
+                text="Anuradhapura is the first capital city of Sri Lanka.",
+            ),
+        ]
+
+    def test_level_down(self):
+        doc = TEST_DOC.level_down()
+        doc.paragraphs = [
+            Paragraph(tag="h2", text="Sri Lanka"),
+            Paragraph(tag="h3", text="1. Colombo"),
+            Paragraph(
+                tag="p", text="Colombo is the largest city in Sri Lanka."
+            ),
+            Paragraph(tag="h3", text="2. Anuradhapura"),
+            Paragraph(
+                tag="p",
+                text="Anuradhapura is the first capital city of Sri Lanka.",
+            ),
+        ]

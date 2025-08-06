@@ -30,7 +30,7 @@ class MarkdownDirDoc(AbstractDoc):
                 if not file_name.endswith(".md"):
                     continue
                 md_path = os.path.join(dir_h1_path, file_name)
-                md_doc = MarkdownDoc.from_file(md_path)
+                md_doc = MarkdownDoc.from_file(md_path).level_down()
                 paragraphs.extend(md_doc.paragraphs)
 
         doc = cls(paragraphs)
@@ -68,6 +68,6 @@ class MarkdownDirDoc(AbstractDoc):
                 os.makedirs(h1_path, exist_ok=True)
             for h2_name, paragraphs in h2_dict.items():
                 md_path = os.path.join(h1_path, f"{h2_name}.md")
-                MarkdownDoc(paragraphs).to_file(md_path)
+                MarkdownDoc(paragraphs).level_up().to_file(md_path)
 
         log.info(f"Wrote {file_path}")
