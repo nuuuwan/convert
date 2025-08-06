@@ -16,15 +16,22 @@ class MarkdownDirDoc(AbstractDoc):
     """
 
     @classmethod
-    def from_file(cls, file_path: str) -> "MarkdownDirDoc":
+    def __gen_dir_h1_name_and_paths__(cls, file_path):
         assert os.path.isdir(file_path)
-        paragraphs = []
         for dir_h1_name in sorted(os.listdir(file_path)):
             dir_h1_path = os.path.join(file_path, dir_h1_name)
             if not os.path.isdir(dir_h1_path):
                 continue
             if dir_h1_name.startswith("."):
                 continue
+            yield dir_h1_name, dir_h1_path
+
+    @classmethod
+    def from_file(cls, file_path: str) -> "MarkdownDirDoc":
+        paragraphs = []
+        for dir_h1_name, dir_h1_path in cls.__gen_dir_h1_name_and_paths__(
+            file_path
+        ):
             paragraphs.append(Paragraph("h1", dir_h1_name))
             for file_name in sorted(os.listdir(dir_h1_path)):
                 if not file_name.endswith(".md"):
